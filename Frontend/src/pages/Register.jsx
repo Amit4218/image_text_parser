@@ -27,10 +27,10 @@ function Register() {
 
   return (
     <>
-      <>
-        <div className="h-screen w-full bg-zinc-950 text-white p-5">
-          <div className="flex justify-center items-center ">
-            <div className="border border-purple-300 h-[27rem] w-[26rem] mt-20 rounded-md">
+      <div className="h-screen w-full bg-[#924DBF] text-white p-5">
+        <div className="flex justify-center items-center ">
+          <div className="">
+            <div className="shadow-2xl  bg-[#7338A0] border border-purple-300 h-[27rem] w-[26rem] mt-20 rounded-md">
               <h3 className="text-center mt-4 text-3xl font-mono">Register</h3>
               <hr className="w-80 ml-10 mt-2 text-purple-300" />
               <form
@@ -41,14 +41,14 @@ function Register() {
               >
                 <div className="text-center">
                   <label
-                    className="text-2xl block mb-1 font-semi-bold font-mono "
+                    className="text-2xl block mb-1 font-semi-bold font-mono  "
                     htmlFor="Email"
                   >
                     Email
                   </label>
                   <hr className="w-40 ml-[7.7rem] mb-2 text-purple-300" />
                   <input
-                    className="mt-2 w-90 bg-zinc-700 py-2 px-2  rounded-sm outline-none font-mono"
+                    className="mt-2 w-90 bg-[#9E72C3] py-2 px-2  rounded-sm outline-none font-mono"
                     type="text"
                     id="Email"
                     name="email"
@@ -67,7 +67,7 @@ function Register() {
                   <hr className="w-50 ml-[6.4rem] mb-2 text-purple-300 " />
 
                   <input
-                    className="mt-2 w-90 bg-zinc-700 py-2 px-2  rounded-sm outline-none font-mono"
+                    className="mt-2 w-90 bg-[#9E72C3] py-2 px-2  rounded-sm outline-none font-mono"
                     type={Icon ? "password" : "text"}
                     id="password"
                     name="password"
@@ -86,21 +86,21 @@ function Register() {
                     <i
                       className={
                         Icon
-                          ? "ri-eye-off-line absolute -ml-10 -mt-5 text-gray-400 text-xl transition duration-200 ease-in"
-                          : "ri-eye-line absolute -ml-10 -mt-5 text-gray-400 text-xl transition duration-200 ease-out "
+                          ? "ri-eye-off-line absolute -ml-10 -mt-5 text-[#7338A0] text-xl transition duration-200 ease-in"
+                          : "ri-eye-line absolute -ml-10 -mt-5 text-[#7338A0] text-xl transition duration-200 ease-out "
                       }
                     ></i>
                   </button>
                   <div className=" ">
-                    <button className="w-20 py-2 px-2 mt-10 bg-zinc-600 rounded-md font-mono hover:bg-zinc-500 ">
-                      Login
+                    <button className="w-23 py-2 px-2 mt-10 bg-[#924DBF] rounded-md font-mono hover:bg-[#4A2574] ">
+                      register
                     </button>
                   </div>
                 </div>
                 <div className="mt-7 text-center text-xs">
                   <p>
-                    comming back ?{" "}
-                    <a className="text-blue-400 font-mono" href="/">
+                    Comming back ?{" "}
+                    <a className="text-blue-400 font-mono" href="#">
                       Login Here
                     </a>
                   </p>
@@ -109,8 +109,8 @@ function Register() {
             </div>
           </div>
         </div>
-        <ToastContainer theme="dark" autoClose={1000} />
-      </>
+      </div>
+      <ToastContainer theme="dark" autoClose={1000} />
     </>
   );
 }

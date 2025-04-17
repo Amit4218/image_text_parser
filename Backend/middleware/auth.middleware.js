@@ -6,6 +6,8 @@ const authMiddleware = (req, res, next) => {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
+    redirect("/upload");
+
     next();
   } catch (error) {
     console.error("Auth error:", error);
