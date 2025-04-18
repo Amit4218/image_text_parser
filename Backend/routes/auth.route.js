@@ -70,8 +70,6 @@ router.post("/login", async (req, res) => {
 
     res.cookie("token", token);
 
-    res.redirect("/upload");
-
     res.status(200).json({
       message: "User logged in",
       token, // Send token to frontend to be stored in localStorage or cookies
