@@ -1,10 +1,13 @@
 import express from "express";
-import parser from "../utils/gemini.util";
+import parser from "../utils/gemini.util.js";
+import Card from "../models/card.model.js";
 
 const router = express.Router();
 
 router.post("/gemenai", async (req, res) => {
-  const { url } = req.query;
+  const { url, secureUrl } = req.query;
+  const user = req.user;
+  // console.log(user);
 
   if (!url) {
     return res.status(400).json({ message: "Image URL is required" });
@@ -14,7 +17,7 @@ router.post("/gemenai", async (req, res) => {
     const data = await parser(url, process.env.GEMENAI_API_KEY);
 
     const info = await Card.create({
-      user: user._id,
+      userId: user.userId,
       name: data.Name,
       designation: data.Designation,
       companyName: data["Company Name"],
@@ -22,13 +25,15 @@ router.post("/gemenai", async (req, res) => {
       phoneNumbers: data["Phone Numbers"],
       email: data.Email,
       website: data.Website,
-      image: url,
+      image: secureUrl,
     });
 
     res.status(200).json({ message: "success" });
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({
-      message: "Internal serval error",
+      message: "gem serval error",
     });
   }
 });
@@ -92,6 +97,16 @@ router.get("/download", async (req, res) => {
     res
       .status(500)
       .send("Something went wrong while generating the Excel file.");
+  }
+});
+
+router.get("/logout", (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
   }
 });
 
