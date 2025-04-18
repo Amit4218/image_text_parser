@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 function Login() {
@@ -7,11 +8,14 @@ function Login() {
   const [Password, setPassword] = useState("");
   const [Message, setMessage] = useState(null);
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL;
+      const API_URL = import.meta.env.VITE_API_URI_LOCAL;
+
       const res = await fetch(`${API_URL}/auth/user/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -20,6 +24,10 @@ function Login() {
 
       setMessage(res.message);
       toast(Message);
+      setEmail("");
+      setPassword("");
+
+      navigate("/upload");
     } catch (error) {
       toast(Message);
     }

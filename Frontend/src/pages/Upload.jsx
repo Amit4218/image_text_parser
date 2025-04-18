@@ -1,6 +1,16 @@
 import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Upload() {
+  const navigate = useNavigate();
+
+  async function logout() {
+    const token = localStorage.setItem("token", "");
+
+    navigate("/");
+  }
+
   return (
     <>
       <div className="h-screen bg-[#7338A0] p-10 ">
@@ -15,14 +25,14 @@ function Upload() {
               </a>
             </button>
             <div className="flex items-end justify-end">
-              <a href="#" className="-mt-8 mr-4 text-xl">
+              <a onClick={logout} href="#" className="-mt-8 mr-4 text-xl">
                 <i class="ri-logout-box-r-line"></i>
               </a>
             </div>
           </nav>
         </div>
         <div className=" flex justify-center items-center ">
-          <h2 className=" -mt-12 text-white text-2xl underline absolute z-1 font-bold font-mono">
+          <h2 className=" -mt-12 text-white text-2xl underline absolute z-1 font-bold font-mono hidden sm:inline">
             Upload Images
           </h2>
         </div>
@@ -49,7 +59,7 @@ function Upload() {
                       d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
                     />
                   </svg>
-                  <p class="mb-2 font-mono text-sm text-white">
+                  <p class="mb-2 font-mono text-xs sm:text-sm text-white ">
                     <span class="font-semibold">Click to upload</span> or drag
                     and drop
                   </p>
