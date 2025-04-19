@@ -39,8 +39,13 @@ router.post("/gemenai", async (req, res) => {
 });
 
 router.get("/get-all", async (req, res) => {
+  const userId = req.user.userId;
+  console.log(userId);
+
   try {
-    const data = await Card.find();
+    const data = await Card.find({ userId });
+
+    console.log(data);
 
     res.status(200).json({ message: "success", data: data });
   } catch (error) {
@@ -99,7 +104,5 @@ router.get("/download", async (req, res) => {
       .send("Something went wrong while generating the Excel file.");
   }
 });
-
-
 
 export default router;
