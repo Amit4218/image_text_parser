@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import sendData from "./Data";
 
 const UploadImg = async (image) => {
@@ -21,10 +22,11 @@ const UploadImg = async (image) => {
     const secure_url = result.secure_url;
     const url = result.url;
     // console.log(url);
-
+    toast.success("Image Uploaded successfully");
     sendData(url, secure_url);
   } catch (err) {
-    console.error("Upload failed:", err);
+    // console.error("Upload failed:", err);
+    toast.error("Error uploading image");
   }
 };
 

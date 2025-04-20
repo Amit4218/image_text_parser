@@ -28,13 +28,14 @@ function Login() {
       setPassword("");
       setloading(true);
 
-      setTimeout(() => setloading(false), 1200);
       setTimeout(() => navigate("/upload"), 1200);
+      setTimeout(() => setloading(false), 1200);
 
       toast.success(res.data.message);
     } catch (error) {
-      toast.error("Login failed");  
-    }
+      toast.error("Login failed");
+      setTimeout(() => setloading(false), 1200);
+    } 
   };
 
   return (

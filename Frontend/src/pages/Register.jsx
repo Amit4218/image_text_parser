@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import Loading from "../components/Loading";
+import axios from "axios";
 
 function Register() {
   const [Icon, setIcon] = useState(true);
@@ -17,18 +18,20 @@ function Register() {
     e.preventDefault();
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL_LOCAL;
-      const res = await axios.post(`${API_URL}/auth/user/register`, data);
-
       setloading(true);
 
-      console.log(res);
+      const API_URL = import.meta.env.VITE_API_URI_LOCAL;
+      const res = await axios.post(`${API_URL}/auth/user/register`, data);
+
+      // console.log(res);
 
       toast.success(res.data.message);
       setTimeout(() => navigate("/"), 800);
       setTimeout(() => setloading(false), 800);
     } catch (error) {
-      toast.error(res.data.message);
+      toast.error(error.response?.data?.message || "Something went wrong!");
+    } finally {
+      setTimeout(() => setloading(false), 800);
     }
   };
 
