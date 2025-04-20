@@ -6,8 +6,9 @@ const router = express.Router();
 
 router.post("/gemenai", async (req, res) => {
   const { url, secureUrl } = req.query;
+
   const user = req.user;
-  // console.log(user);
+  // console.log(url, secureUrl);
 
   if (!url) {
     return res.status(400).json({ message: "Image URL is required" });
@@ -40,12 +41,12 @@ router.post("/gemenai", async (req, res) => {
 
 router.get("/get-all", async (req, res) => {
   const userId = req.user.userId;
-  console.log(userId);
+  // console.log(userId);
 
   try {
     const data = await Card.find({ userId });
 
-    console.log(data);
+    // console.log(data);
 
     res.status(200).json({ message: "success", data: data });
   } catch (error) {
