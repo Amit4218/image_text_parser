@@ -35,6 +35,13 @@ function Register() {
     }
   };
 
+  const loginPage = (e) => {
+    e.preventDefault();
+    setloading(true);
+    setTimeout(() => navigate("/"), 800);
+    setTimeout(() => setloading(false), 800);
+  };
+
   return (
     <>
       {loading ? (
@@ -115,7 +122,11 @@ function Register() {
                   <div className="mt-7 text-center text-xs">
                     <p>
                       Comming back ?{" "}
-                      <a className="text-blue-400 font-mono" href="#">
+                      <a
+                        className="text-blue-400 font-mono"
+                        onClick={loginPage}
+                        href="/"
+                      >
                         Login Here
                       </a>
                     </p>

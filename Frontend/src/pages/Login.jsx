@@ -1,19 +1,20 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import Loading from "../components/Loading";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [Icon, setIcon] = useState(true);
   const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
   const [loading, setloading] = useState(false);
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setloading(true);
 
     const data = { email: Email, password: Password };
 
@@ -26,16 +27,21 @@ function Login() {
 
       setEmail("");
       setPassword("");
-      setloading(true);
-
-      setTimeout(() => navigate("/upload"), 1200);
-      setTimeout(() => setloading(false), 1200);
-
       toast.success(res.data.message);
+
+      setTimeout(() => navigate("/upload"), 800);
+      setTimeout(() => setloading(false), 800);
     } catch (error) {
-      toast.error("Login failed");
+      toast.error(error?.response?.data?.message || "Login failed");
       setTimeout(() => setloading(false), 1200);
-    } 
+    }
+  };
+
+  const registerPage = (e) => {
+    e.preventDefault();
+    setloading(true);
+    setTimeout(() => navigate("/register"), 800);
+    setTimeout(() => setloading(false), 800);
   };
 
   return (
@@ -116,7 +122,11 @@ function Login() {
                   <div className="mt-7 text-center text-xs">
                     <p>
                       New here ?{" "}
-                      <a className="text-blue-400 font-mono" href="/register">
+                      <a
+                        className="text-blue-400 font-mono"
+                        href="/register"
+                        onClick={registerPage}
+                      >
                         Register Here
                       </a>
                     </p>

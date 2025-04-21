@@ -3,8 +3,11 @@ import axios from "axios";
 import { Slide, toast, ToastContainer } from "react-toastify";
 import Loading from "../components/Loading";
 import { useNavigate } from "react-router-dom";
+import token from "../components/TokenCheck";
 
 function Show() {
+  token();
+
   const API_URL = import.meta.env.VITE_API_URI_LOCAL;
 
   const navigate = useNavigate();
@@ -18,6 +21,11 @@ function Show() {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
+
+        if (!token) {
+          return;
+        }
+
         const res = await axios.get(`${API_URL}/upload/data/get-all`, {
           headers: {
             Authorization: `Bearer ${token}`,

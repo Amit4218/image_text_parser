@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Slide, ToastContainer, toast } from "react-toastify";
 import UploadImg from "../services/Upload";
 import Loading from "../components/Loading";
+import token from "../components/TokenCheck";
 
 function Upload() {
+  token();
+
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const fileInputRef = useRef(null);

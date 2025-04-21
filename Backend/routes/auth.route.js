@@ -68,8 +68,6 @@ router.post("/login", async (req, res) => {
       process.env.JWT_SECRET
     );
 
-    res.cookie("token", token);
-
     res.status(200).json({
       message: "User logged in",
       token, // Send token to frontend to be stored in localStorage or cookies
