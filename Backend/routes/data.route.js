@@ -1,6 +1,7 @@
 import express from "express";
 import parser from "../utils/gemini.util.js";
 import Card from "../models/card.model.js";
+import ExcelJS from "exceljs";
 
 const router = express.Router();
 
@@ -55,8 +56,10 @@ router.get("/get-all", async (req, res) => {
 });
 
 router.get("/download", async (req, res) => {
+  const userId = req.user.userId;
+
   try {
-    const dataFromDB = await Card.find();
+    const dataFromDB = await Card.find({ userId });
     // console.log("dataFromDB);
 
     const workbook = new ExcelJS.Workbook();
