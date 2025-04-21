@@ -24,15 +24,19 @@ function Upload() {
     setTimeout(() => setloading(false), 900);
   }
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    if (!image) return toast.warn("Please select an image first!");
 
-    if (!image) return;
-
-    UploadImg(image);
-
-    fileInputRef.current.value = "";
-    setImage(null);
+    try {
+      setloading(true);
+      await UploadImg(image);
+      fileInputRef.current.value = "";
+      setImage(null);
+      toast.success("Image uploaded successfully!");
+    } finally {
+      setloading(false);
+    }
   };
 
   const showHandler = () => {
