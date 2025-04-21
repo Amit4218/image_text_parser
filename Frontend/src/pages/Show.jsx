@@ -49,6 +49,42 @@ function Show() {
     setTimeout(() => setloading(false), 900);
   }
 
+  const download = async () => {
+    setloading(true);
+
+    const API_URI = import.meta.env.VITE_API_URI_LOCAL;
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await axios.get(`${API_URI}/upload/data/download`, {
+        responseType: "blob",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const blob = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "contacts.xlsx";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+
+      toast.success("Download successful");
+    } catch (error) {
+      toast.error("Error downloading file");
+      console.error("Download error:", error);
+    } finally {
+      setloading(false);
+    }
+  };
+
   return (
     <>
       {loading ? (
@@ -68,7 +104,7 @@ function Show() {
               <button className="mt-1">
                 <a
                   className="bg-[#4A2574] text-white px-2 py-2 ml-2 rounded-md hover:bg-[#924DBF] font-mono shadow-md shadow-purple-400 outline-none"
-                  href="#"
+                  onClick={download}
                 >
                   Download CSV
                 </a>
@@ -82,52 +118,54 @@ function Show() {
           </div>
 
           <div className="flex justify-center items-center">
-            <h2 className="-mt-12 text-white text-2xl underline absolute z-1 font-bold font-mono hidden sm:inline">
+            <h2 className="-mt-12 text-white text-xl underline absolute z-1 font-bold font-mono hidden sm:inline">
               Uploaded Images Info
             </h2>
           </div>
 
-          <div className="overflow-hidden overflow-y-scroll h-[30rem] w-full mt-10 border border-white p-4 rounded-md">
+          <div className="overflow-hidden overflow-y-scroll h-[32.5rem] w-full mt-10 border border-white p-4 rounded-md">
             {loading ? (
               <div className="text-white text-center font-mono">Loading...</div>
             ) : data.length > 0 ? (
               data.map((item, index) => (
                 <div
                   key={index}
-                  className="border border-black p-4 rounded-md text-sm mt-4 bg-white text-black flex flex-col gap-2"
+                  className="border border-black bg-[#924DBF] rounded-md p-3 mb-4 flex flex-col sm:flex-row sm:h-60 gap-4"
                 >
-                  {/* Profile Image */}
-                  <img
-                    src={item.image}
-                    alt={`${item.name}'s profile`}
-                    className="w-32 h-32 object-cover rounded-md border"
-                  />
-
-                  <div>
-                    <h1 className="text-lg font-bold">Name: {item.name}</h1>
+                  <div className="flex-shrink-0 w-full sm:w-1/3 h-48 sm:h-full flex justify-center items-center">
+                    <img
+                      className="object-cover rounded-md border w-40 h-40 sm:w-full sm:h-full"
+                      src={item.image}
+                      alt={`${item.name}'s profile`}
+                    />
+                  </div>
+                  <div className="text-white text-sm font-mono flex flex-col justify-center w-full sm:w-2/3">
                     <p>
-                      <strong>Designation:</strong> {item.designation}
+                      <strong>Name:</strong> {item.name}
                     </p>
                     <p>
-                      <strong>Email:</strong> {item.email}
+                      <strong>Designation:</strong> {item.designation}
                     </p>
                     <p>
                       <strong>Company Name:</strong> {item.companyName}
                     </p>
                     <p>
-                      <strong>Address:</strong> {item.address}
+                      <strong>Email:</strong> {item.email}
                     </p>
                     <p>
                       <strong>Website:</strong> {item.website}
                     </p>
-                    <div>
-                      <strong>Phone Numbers:</strong>
-                      <ul className="list-disc list-inside">
-                        {item.phoneNumbers.map((phone, idx) => (
-                          <li key={idx}>{phone}</li>
-                        ))}
-                      </ul>
-                    </div>
+                    <p>
+                      <strong>Address:</strong> {item.address}
+                    </p>
+                    <p>
+                      <strong>Phone No:</strong>
+                    </p>
+                    <ul className="list-disc list-inside ml-4">
+                      {item.phoneNumbers.map((phone, idx) => (
+                        <li key={idx}>{phone}</li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
               ))
