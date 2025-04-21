@@ -47,12 +47,12 @@ To run this project you need .env file in both the `Frontend` & `Backend` folder
 
 Get your Cloudinary credentials from [here](https://cloudinary.com/)
 
-VITE_CLOUDINARY_CLOUD_NAME<br />
-VITE_CLOUDINARY_API_KEY<br />
-VITE_CLOUDINARY_API_SECRET<br />
-VITE_CLOUDINARY_PRESET<br />
-VITE_CLOUDINARY_API_UPLOAD_URL<br />
-VITE_API_URI_LOCAL<br />
+`VITE_CLOUDINARY_CLOUD_NAME`<br />
+`VITE_CLOUDINARY_API_KE`Y<br />
+`VITE_CLOUDINARY_API_SECRET`<br />
+`VITE_CLOUDINARY_PRESET`<br />
+`VITE_CLOUDINARY_API_UPLOAD_URL`<br />
+`VITE_API_URI_LOCAL`<br />
 
 ### Backend `.env`
 
